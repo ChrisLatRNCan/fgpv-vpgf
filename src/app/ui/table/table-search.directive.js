@@ -216,7 +216,7 @@ function Controller(tableService, debounceService, $timeout, $rootElement, state
                 // check if it is only numbers
                 if (!userValue.some(isNaN)) {
                     // set filter type and if it is a date, create date object
-                    filter.type = (userValue.length <= 2) ? 'number' : 'date';
+                    filter.type = (userValue.length <= 2) ? 'number' : 'rv-date';
                     filter.searchTerm = (filter.type === 'number') ?
                         userValue :
                         [new Date(userValue.splice(0, 3).join('-')), new Date(userValue.splice(0, 3).join('-'))];
@@ -255,7 +255,7 @@ function Controller(tableService, debounceService, $timeout, $rootElement, state
                     let value = data[column.idx];
                     if (filter.type === 'number') {
                         value = parseFloat(value);
-                    } else if (filter.type === 'date') {
+                    } else if (filter.type === 'rv-date') {
                         value = new Date(value.split(' ')[0]);
                     }
 

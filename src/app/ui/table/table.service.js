@@ -350,8 +350,8 @@ function tableService(stateManager, geoService, $rootScope, $q, gapiService, deb
                 defs.push(`${column.name} <= ${max}`);
             }
         } else if (column.type === 'rv-date') {
-            const min = column.filter.min;
-            const max = column.filter.max;
+            const min = new Date(column.filter.min);
+            const max = new Date(column.filter.max);
 
             if (min) {
                 const dateMin = `${min.getMonth() + 1}/${min.getDate()}/${min.getFullYear()}`;

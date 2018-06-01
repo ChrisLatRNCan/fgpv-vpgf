@@ -575,21 +575,20 @@ function rvTableDefault($timeout, $q, stateManager, $compile, geoService, $trans
                 // if there is no filter properties, do not create the filter so set it to undefined
                 if (config.filter) {
                     if (config.filter.type) {
-                        column.type = config.filter.type;
-                        column.filter = columnTypes[config.filter.type].init();
+                        column.type = config.filter.type === 'date' ? 'rv-date' : config.filter.type;
+                        column.filter = columnTypes[column.type].init();
                     }
 
                     // set filter value
                     if (config.filter.value) {
                         if (column.type === 'string' || column.type === 'selector') {
                             column.filter.value = config.filter.value;
-                        } else if (column.type === 'number') {
+                        } else if (column.type === 'number' || column.type === 'rv-date') {
+                        // expect string "numberMin,numberMax" or "dateMin,dateMax"
+                        // dates should be in format YYYY-MM-DD
                             const values = config.filter.value.split(',');
                             column.filter.min = values[0];
                             column.filter.max = values[1];
-                        } else {
-                            column.filter.min = config.filter.value.min;
-                            column.filter.max = config.filter.value.max;
                         }
                     }
 
